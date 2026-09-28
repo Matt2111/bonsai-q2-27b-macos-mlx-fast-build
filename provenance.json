@@ -1,0 +1,13 @@
+{
+  "retrieved_utc_date": "2026-09-28",
+  "source": "https://www.yukon.org/",
+  "challenge": {
+    "id": "9d563dbc-5f17-4636-9476-04dd6a24a6ad",
+    "name": "davidtai/mlxfast-bonsai2-27b",
+    "status": "paused",
+    "sourceUrl": "https://github.com/Layr-Labs/mlxfast-bonsai2-27b-engine",
+    "sourceBranch": "main",
+    "sourceRef": "831fae740de35a106e85768d8b0534b4af422b13",
+    "updatedAt": "2026-09-27T17:42:56.548Z"
+  }
+}

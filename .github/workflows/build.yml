@@ -1,0 +1,36 @@
+name: Build pinned Bonsai optimized worker
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    if: ${{ github.event.repository.private == false }}
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - name: Checkout packaging files
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Checkout accepted source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: Layr-Labs/mlxfast-bonsai2-27b-engine
+          ref: 831fae740de35a106e85768d8b0534b4af422b13
+          path: source
+          persist-credentials: false
+          submodules: false
+          lfs: false
+      - name: Build and package without models
+        run: bash scripts/build.sh "$GITHUB_WORKSPACE/source"
+      - name: Upload portable archive and checksum only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: bonsai-worker-macos-arm64
+          path: |
+            dist/bonsai-worker-macos-arm64.tar.gz
+            dist/bonsai-worker-macos-arm64.tar.gz.sha256
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
